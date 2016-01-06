@@ -10,7 +10,8 @@ This is my blog written in PHP, JS, JQuery, and CSS on the Laravel framework
 - Add your database logins to the values
 - Run `composer install`
 
-I have used the MVC pattern to create this project.
+
+The project is built using a Model-View-Controller architecture.
 
 ### License
 
