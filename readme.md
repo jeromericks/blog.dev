@@ -2,7 +2,15 @@
 
 This is my blog written in PHP, JS, JQuery, and CSS on the Laravel framework
 
-I have used the MVC pattern to create this site.
+## Getting Started
+- Clone this repository
+- Create a database for this application
+- Create a `.env.local.php` file inside of `blog.dev`
+- Add the contents of `env-template.php` to `.env.local.php`
+- Add your database logins to the values
+- Run `composer install`
+
+I have used the MVC pattern to create this project.
 
 ### License
 
