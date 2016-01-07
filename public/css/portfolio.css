@@ -1,0 +1,76 @@
+/* CSS reset settings here */
+/** {
+	margin: 0px;
+	padding: 0px;
+}*/
+
+body{
+	padding-top: 85px;
+	padding-left: 50px;
+}
+
+img{
+	border: 1px solid lightgray;
+	width: 511px;
+	height: 400px;
+}
+
+.positioning_img{
+	margin-bottom: 20px;
+}
+
+.box_model{
+	width: 511px;
+	height: 600px;
+}
+
+a{
+	display: inline-block;
+	vertical-align: top;
+}
+
+.specifications{
+	width: 650px;
+	padding-left: 10px;
+	padding-bottom: 20px;
+	display: inline-block;
+}
+
+.specifications img{
+	width: 200px;
+	height: 100px;
+	margin-top: 20px;
+}
+
+.btn-outline {
+    margin-top: 45px;
+    border: solid 2px gray;
+    font-size: 20px;
+    color: gray;
+    margin-left: 10px;
+}
+
+.btn-outline:hover,
+.btn-outline:focus,
+.btn-outline:active,
+.btn-outline.active {
+    border: solid 2px #0099FF;
+	color: #3399FF;
+}
+
+.btn-social {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 2px solid gray;
+    border-radius: 100%;
+    text-align: center;
+    font-size: 20px;
+    line-height: 45px;
+}
+
+.btn:focus,
+.btn:active,
+.btn.active {
+    outline: 0;
+}
