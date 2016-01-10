@@ -14,9 +14,11 @@
     @include('partials.navbar')
     @yield('content')
     @include('partials.footer')
+
     {{-- Script tags for jQuery and Bootstrap --}}
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+
     @yield('bottom-script')
 </body>
 </html>
