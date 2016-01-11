@@ -9,7 +9,7 @@ class PostsController extends \BaseController {
 	 */
 	public function index()
 	{
-		return 'All posts';
+		return View::make('posts.index');
 	}
 
 
@@ -56,7 +56,8 @@ class PostsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		return 'Show a specific post based on id';
+		Input::find($id);
+		return View::make('posts.show');
 	}
 
 
