@@ -32,6 +32,7 @@ class PostsController extends \BaseController {
 	public function store()
 	{
 		$post = new Post();
+		
 		$post->title = Input::get('title');
 		$post->description = Input::get('description');
 		$post->user_id = Input::get('user_id', 1);
