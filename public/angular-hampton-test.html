@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My First Angular App</title>
+</head>
+<body ng-app="hamptonModule">
+
+	<h1>{{ "Hello, Codeup!" | uppercase }}</h1>
+	<p>{{ (578456 * 3 + 7) / 11 | number:0 }}</p>
+
+	<ul>
+	    <li ng-if="1 < 2">One is Less Than Two</li>
+	    <li ng-if="1 <= 2">One is Less Than or Equal to Two</li>
+	    <li ng-if="1 == 2">One is Equal to Two</li>
+	    <li ng-if="1 >= 2">One is Greater Than or Equal to Two</li>
+	    <li ng-if="1 > 2">One is Greater Than Two</li>
+	</ul>
+
+	<ol>
+    	<li ng-repeat="letter in ['A', 'B', 'C', 'D', 'E', 'F']">{{ letter | lowercase }}</li>
+	</ol>
+
+	<ul>
+	    <li ng-repeat="num in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" ng-if="num % 2 == 0">
+	        {{ num }} is even!
+	    </li>
+	</ul>
+
+	<script type="text/javascript" src="/js/angular.min.js"></script>
+	<script type="text/javascript" src="/js/hamptonModule.js"></script>
+</body>
+</html>

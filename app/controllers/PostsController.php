@@ -9,7 +9,9 @@ class PostsController extends \BaseController {
 	 */
 	public function index()
 	{
-		return View::make('posts.index');
+		$posts = Post::all();
+
+		return View::make('posts.index', array('posts' => $posts));
 	}
 
 
@@ -31,19 +33,29 @@ class PostsController extends \BaseController {
 	 */
 	public function store()
 	{
-		$post = new Post();
-		
-		$post->title = Input::get('title');
-		$post->description = Input::get('description');
-		$post->user_id = Input::get('user_id', 1);
+		// create the validator
+    	$validator = Validator::make(Input::all(), Post::$rules);
 
-		$result = $post->save();
+    	// attempt validation
+    	if ($validator->fails()) {
+        	// validation failed, redirect to the post create page with validation errors and old inputs
+        	return Redirect::back()->withInput()->withErrors($validator);
+    	} else {
+        	// validation succeeded, create and save the post
+			$post = new Post();
+			
+			$post->title = Input::get('title');
+			$post->description = Input::get('description');
+			$post->user_id = 1;
+			$result = $post->save();
 
-		if($result) {
-			return 'Your post was saved';
-		} else {
-			return Redirect::back()->withInput();
-		}
+			if($result) {
+				return Redirect::action('posts.index');
+			} else {
+				return Redirect::back()->withInput();
+			}
+    	}
+
 
 	}
 
@@ -56,8 +68,9 @@ class PostsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		Input::find($id);
-		return View::make('posts.show');
+		$post = Post::find($id);
+
+		return View::make('posts.show', array('post' => $post));
 	}
 
 
@@ -69,7 +82,9 @@ class PostsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		return 'Show the edit form of a specific post based on id';
+		$post = Post::find($id);
+
+		return View::make('posts.edit', array('post' => $post));
 	}
 
 
@@ -81,7 +96,13 @@ class PostsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		return 'Update a specific post based on id';
+		$post = Post::find($id);
+
+		$post->title = Input::get('title');
+		$post->description = Input::get('description');
+		$post->save();
+
+		return Redirect::action('posts.index');
 	}
 
 
@@ -93,7 +114,10 @@ class PostsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		return 'Delete a specific post based on id';
+		$post = Post::find($id);
+		$post->delete();
+
+		return Redirect::action('posts.index');
 	}
 
 
