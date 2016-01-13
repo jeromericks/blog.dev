@@ -9,12 +9,14 @@
 	<div class="row">
 		@foreach($posts as $post)
 		<div class="col-sm-8">
-			<p class="date">{{{ $post['created_at']->format('F d, Y') }}}</p>
+			<p class="date">{{{ $post->created_at->setTimezone('America/Chicago')->format('F d, Y') }}}</p>
 			<div class="main_content">
-				<h2><a href="{{{ action('PostsController@show', $post->id) }}}">{{{ ucfirst($post['title']) }}}</a></h2>
-				<p>{{{ ucfirst($post['description']) }}}</p>
+				<h2><a href="{{{ action('PostsController@show', $post->id) }}}">{{{ ucfirst($post->title) }}}</a></h2>
+				<p>{{{ ucfirst($post->description) }}}</p>
 			</div>
 		</div>
 		@endforeach
 	</div>
+	<span>{{ $posts->links() }}</span>
+	<span class="page">{{ $posts->getCurrentPage() }} of {{ $posts->getLastPage() }}</span>
 @stop

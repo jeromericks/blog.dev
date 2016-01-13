@@ -14,3 +14,7 @@ body {
 .help-block {
 	color: red;
 }
+
+.btn-danger {
+	margin-left: 10px;
+}

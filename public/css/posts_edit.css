@@ -26,3 +26,7 @@ body {
 	top: -88px;
 	position: relative;
 }
+
+.help-block {
+	color: red;
+}
