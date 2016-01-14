@@ -50,12 +50,14 @@ class PostsController extends \BaseController {
 			$result = $post->save();
 
 			if($result) {
+				Session::flash('successMessage', 'Your post successfully saved');
 				return Redirect::action('posts.index');
 			} else {
+				Session::flash('errorMessage', 'Your post wasn\'t saved');
+				Log::warning('Post failed to save: ', Input::all());
 				return Redirect::back()->withInput();
 			}
     	}
-
 
 	}
 
@@ -70,6 +72,10 @@ class PostsController extends \BaseController {
 	{
 		$post = Post::find($id);
 
+		if(!$post) {
+			App::abort(404);
+		}
+
 		return View::make('posts.show', array('post' => $post));
 	}
 
@@ -83,6 +89,10 @@ class PostsController extends \BaseController {
 	public function edit($id)
 	{
 		$post = Post::find($id);
+
+		if(!$post) {
+			App::abort(404);
+		}
 
 		return View::make('posts.edit', array('post' => $post));
 	}
@@ -103,16 +113,23 @@ class PostsController extends \BaseController {
 
     	// attempt validation
     	if ($validator->fails()) {
-        	// validation failed, redirect to the post create page with validation errors and old inputs
+        	// validation failed, redirect to the post show page with validation errors and old inputs
         	return Redirect::back()->withInput()->withErrors($validator);
     	} else {
-        	// validation succeeded, create and save the post
+        	// validation succeeded, edit and save the post
 
 			$post->title = Input::get('title');
 			$post->description = Input::get('description');
-			$post->save();
+			$result = $post->save();
 
-			return Redirect::action('posts.index');
+			if($result) {
+				Session::flash('successMessage', 'Your post successfully updated');
+				return Redirect::action('posts.index');
+			} else {
+				Session::flash('errorMessage', 'Your post wasn\'t updated');
+				Log::warning('Post failed to update: ', Input::all());
+				return Redirect::back()->withInput();
+			}
 		}
 	}
 
@@ -128,6 +145,7 @@ class PostsController extends \BaseController {
 		$post = Post::find($id);
 		$post->delete();
 
+		Session::flash('successMessage', 'Your post was successfully deleted');
 		return Redirect::action('posts.index');
 	}
 
