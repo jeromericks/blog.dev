@@ -26,6 +26,15 @@
                 <li class="page-scroll active">
                     <a href="#contact">Contact</a>
                 </li>
+            @if(Auth::check())
+                <li class="page-scroll">
+                    <a href="{{{ action('HomeController@getLogout') }}}">Logout</a>
+                </li>
+            @else
+                <li class="page-scroll">
+                    <a href="{{{ action('HomeController@getLogin') }}}">Login</a>
+                </li> 
+            @endif
             </ul>
         </div>
 	</div>

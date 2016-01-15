@@ -1,6 +1,13 @@
 <?php
 
 class PostsController extends \BaseController {
+	
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->beforeFilter('auth', array('except' => array('index', 'show')));
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -9,9 +16,21 @@ class PostsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$posts = Post::orderBy('created_at', 'desc')->paginate(4);
+		$query = Post::with('user');
 
-		return View::make('posts.index', array('posts' => $posts));
+		if(Input::has('search')) {
+			$query->where('title', 'like', '%' . Input::get('search') . '%');
+		}
+
+
+		if (Request::wantsJson()) {
+			$posts = $query->orderBy('created_at', 'desc')->get();
+            return Response::json($posts);
+        } else {
+			$posts = $query->orderBy('created_at', 'desc')->paginate(4);
+			return View::make('posts.index', array('posts' => $posts));
+        }
+
 	}
 
 
@@ -46,15 +65,18 @@ class PostsController extends \BaseController {
 			
 			$post->title = Input::get('title');
 			$post->description = Input::get('description');
-			$post->user_id = 1;
+			$post->user_id = Auth::id();
 			$result = $post->save();
 
 			if($result) {
 				Session::flash('successMessage', 'Your post successfully saved');
+
 				return Redirect::action('posts.index');
+
 			} else {
 				Session::flash('errorMessage', 'Your post wasn\'t saved');
 				Log::warning('Post failed to save: ', Input::all());
+
 				return Redirect::back()->withInput();
 			}
     	}
@@ -145,9 +167,19 @@ class PostsController extends \BaseController {
 		$post = Post::find($id);
 		$post->delete();
 
-		Session::flash('successMessage', 'Your post was successfully deleted');
-		return Redirect::action('posts.index');
+		$message = 'Your post was successfully deleted';
+
+		if (Request::wantsJson()) {
+            return Response::json(array('message' => $message));
+        } else {
+			Session::flash('successMessage', $message);
+			return Redirect::action('posts.index');
+		}
 	}
 
+	public function managePosts()
+	{
+		return View::make('posts.manage');
+	}
 
 }

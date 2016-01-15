@@ -16,4 +16,12 @@ Route::get('/resume', 'HomeController@showResume');
 Route::get('/portfolio', 'HomeController@showPortfolio');
 Route::get('/user/{name?}', 'HomeController@showName');
 Route::get('/rolldice/{guess?}', 'HomeController@showGuess');
+
+Route::get('login', 'HomeController@getLogin');
+Route::post('login', 'HomeController@postLogin');
+Route::get('logout', 'HomeController@getLogout');
+
+Route::get('posts/manage', 'PostsController@managePosts');
 Route::resource('posts', 'PostsController');
+
+Route::resource('tags', 'TagsController');
