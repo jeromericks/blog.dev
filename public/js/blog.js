@@ -30,6 +30,18 @@
             $log.debug(response);
         });
 
+        $scope.deletePost = function(index) {
+            var id = $scope.posts[index].id;
+            $http.delete("/posts/" + id).then(function(response) {
+                $log.info("Ajax request deleted record successfully!");
+                $log.debug(response);
+                $scope.posts.splice(index, 1);
+            }, function(response) {
+                $log.error("Ajax request failed for some reason!");
+                $log.debug(response);
+            });
+        };
+
     }]);
 
 })();

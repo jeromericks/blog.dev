@@ -16,21 +16,18 @@
 						<th>Author</th>
 						<th>Date Posted</th>
 						<th></th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="post in posts">
-						<td>@{{ post['title'] }}</td>
-						<td>@{{ post['description'] }}</td>
-						<td>@{{ post.user['first_name'] }}</td>
-						<td>@{{ post['created_at']['date'] }}</td>
-						<td>@{{ post['id'] }}</td>
-						<td><button class="btn btn-danger" ng-click="action('PostsController@destroy', @{{ post['id'] }})"><i class="fa fa-times"></i>&nbsp;Delete</button></td>
+						<td ng-cloak>@{{ post.title }}</td>
+						<td ng-cloak>@{{ post.description }}</td>
+						<td ng-cloak>@{{ post.user.first_name + ' ' + post.user.last_name }}</td>
+						<td ng-cloak>@{{ post.created_at.date }}</td>
+						<td><button class="btn btn-danger" ng-click="deletePost($index)"><i class="fa fa-times"></i>&nbsp;Delete</button></td>
 					</tr>
 				</tbody>
 			</table>
-			@{{ posts }}}
 		</main>
 	</div>
 @stop

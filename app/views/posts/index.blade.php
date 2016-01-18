@@ -5,9 +5,9 @@
 @stop
 
 @section('content')
-	<form action="PostsController@index">
-		<input type="text" name="search" placeholder="Search" class="form-control">
-	</form>
+	<input type="text" name="search" placeholder="Search" class="form-control">
+	<a class="btn btn-primary" href="{{{ action('PostsController@index') }}}">Search</a>
+	
 	<a href="{{{ action('PostsController@create') }}}"><i class="fa fa-plus"></i>&nbsp;Create Post</a>
 	<div class="row">
 		@foreach($posts as $post)

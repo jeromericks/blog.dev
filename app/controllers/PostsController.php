@@ -20,6 +20,7 @@ class PostsController extends \BaseController {
 
 		if(Input::has('search')) {
 			$query->where('title', 'like', '%' . Input::get('search') . '%');
+			$query->orWhere('description', 'like', '%' . Input::get('search') . '%');
 		}
 
 
